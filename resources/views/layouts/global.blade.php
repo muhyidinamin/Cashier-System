@@ -82,9 +82,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{route('foods.index')}}">
                         <span class="oi oi-tag"></span>
-                        Manage categories
+                        Manage Foods
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('drinks.index')}}">
+                        <span class="oi oi-tag"></span>
+                        Manage Drinks
                     </a>
                 </li>
                 <div class="d-block d-md-none">
