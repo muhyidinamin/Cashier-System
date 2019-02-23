@@ -29,10 +29,11 @@ Route::get('/foods/trash', 'FoodController@trash')->name('foods.trash');
 
 Route::resource('foods', 'FoodController');
 
-Route::get('/drinks/{id}/restore', 'DrinkController@restore')->name('drinks.restore');
-Route::delete('/drinks/{id}/delete-permanent', 'DrinkController@deletePermanent')->name('drinks.delete-permanent');
-Route::get('/drinks/trash', 'DrinkController@trash')->name('drinks.trash');
+Route::get('/categories/{id}/restore', 'CategoryController@restore')->name('categories.restore');
+Route::delete('/categories/{id}/delete-permanent', 'CategoryController@deletePermanent')->name('categories.delete-permanent');
+Route::get('/categories/trash', 'CategoryController@trash')->name('categories.trash');
+Route::get('/ajax/categories/search','CategoryController@ajaxSearch');
 
-Route::resource('drinks', 'DrinkController');
+Route::resource("categories", "CategoryController");
 
 Route::get('/home', 'HomeController@index')->name('home');

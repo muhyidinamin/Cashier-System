@@ -6,17 +6,17 @@
  */
 ?>
 @extends('layouts.global')
-@section('title') Drink list @endsection
+@section('title') Category list @endsection
 @section('content')
     <div class="row">
         <div class="col-md-6">
-            <form action="{{route('drinks.index')}}">
+            <form action="{{route('categories.index')}}">
 
                 <div class="input-group">
                     <input
                         type="text"
                         class="form-control"
-                        placeholder="Filter by drink name"
+                        placeholder="Filter by category name"
                         value="{{Request::get('name')}}"
                         name="name">
 
@@ -33,10 +33,10 @@
         <div class="col-md-6">
             <ul class="nav nav-pills card-header-pills">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{route('drinks.index')}}">Published</a>
+                    <a class="nav-link active" href="{{route('categories.index')}}">Published</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('drinks.trash')}}">Trash</a>
+                    <a class="nav-link" href="{{route('categories.trash')}}">Trash</a>
                 </li>
             </ul>
         </div>
@@ -58,8 +58,8 @@
 
             <div class="row">
                 <div class="col-md-12 text-right">
-                    <a href="{{route('drinks.create')}}" class="btn btn-primary">Add
-                        Drink</a>
+                    <a href="{{route('categories.create')}}" class="btn btn-primary">Create
+                        category</a>
                 </div>
             </div>
             <br>
@@ -67,33 +67,31 @@
             <table class="table table-bordered table-stripped">
                 <thead>
                 <tr>
-                    <th><b>Drink Name</b></th>
-                    <th><b>Price</b></th>
-                    <th><b>Status</b></th>
+                    <th><b>Name</b></th>
+                    <th><b>Slug</b></th>
+                    <th><b>Image</b></th>
                     <th><b>Actions</b></th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($drinks as $drink)
+                @foreach ($categories as $category)
                     <tr>
-                        <td>{{$drink->drink_name}}</td>
-                        <td>{{$drink->price}}</td>
+                        <td>{{$category->name}}</td>
+                        <td>{{$category->slug}}</td>
                         <td>
-                            @if($drink->status == "READY")
-                                <span class="badge badge-success">
-                                {{$drink->status}}
-                                </span>
+                            @if($category->image)
+                                <img
+                                    src="{{asset('storage/' . $category->image)}}"
+                                    width="48px"/>
                             @else
-                                <span class="badge badge-danger">
-                                {{$drink->status}}
-                                </span>
-                            @endif 
+                                No image
+                            @endif
                         </td>
                         <td>
-                            <a href="{{route('drinks.edit', ['id' => $drink->id])}}" class="btn btn-info btn-sm"> Edit </a>
-                            <a href="{{route('drinks.show', ['id' => $drink->id])}}" class="btn btn-primary"> Show </a>
-                            <form class="d-inline" action="{{route('drinks.destroy', ['id' => $drink->id])}}" method="POST"
-                                  onsubmit="return confirm('Move drink to trash?')">
+                            <a href="{{route('categories.edit', ['id' => $category->id])}}" class="btn btn-info btn-sm"> Edit </a>
+                            <a href="{{route('categories.show', ['id' => $category->id])}}" class="btn btn-primary"> Show </a>
+                            <form class="d-inline" action="{{route('categories.destroy', ['id' => $category->id])}}" method="POST"
+                                  onsubmit="return confirm('Move category to trash?')">
                                 @csrf
                                 <input type="hidden" value="DELETE" name="_method">
                                 <input type="submit" class="btn btn-danger btn-sm" value="Trash">
@@ -105,7 +103,7 @@
                 <tfoot>
                 <tr>
                     <td colSpan="10">
-                        {{$drinks->appends(Request::all())->links()}}
+                        {{$categories->appends(Request::all())->links()}}
                     </td>
                 </tr>
                 </tfoot>

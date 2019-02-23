@@ -43,13 +43,16 @@ class FoodController extends Controller
         $name = $request->get('name');
         $price = $request->get('price');
         $status = $request->get('status');
+        $category = $request->get('categories');
 
         $new_food = new \App\Food;
         $new_food->food_name = $name;
         $new_food->price = $price;
         $new_food->status = $status;
+        $new_food->category = $category;
         $new_food->created_by = \Auth::user()->id;
         $new_food->save();
+
         return redirect()->route('foods.create')->with('status', 'Food successfully added');
     }
 

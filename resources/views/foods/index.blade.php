@@ -69,6 +69,7 @@
                 <tr>
                     <th><b>Food Name</b></th>
                     <th><b>Price</b></th>
+                    <th><b>Category</b></th>
                     <th><b>Status</b></th>
                     <th><b>Actions</b></th>
                 </tr>
@@ -78,6 +79,7 @@
                     <tr>
                         <td>{{$food->food_name}}</td>
                         <td>{{$food->price}}</td>
+                        <td>{{$food->category}}</td>
                         <td>
                             @if($food->status == "READY")
                                 <span class="badge badge-success">

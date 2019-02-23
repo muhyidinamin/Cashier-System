@@ -22,6 +22,13 @@
             <label>Food name</label><br>
             <input type="text" class="form-control" name="name">
             <br>
+            <label for="categories">Categories</label><br>
+            <select
+            name="categories"
+            id="categories"
+            class="form-control">
+            </select>
+            <br>
             <label>Price</label><br>
             <input type="text" class="form-control" name="price">
             <br>
@@ -35,4 +42,22 @@
             <input type="submit" class="btn btn-primary" value="Save">
         </form>
     </div>
+@endsection
+
+@section('footer-scripts')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script>
+    $('#categories').select2({
+        ajax: {
+            url: 'http://sistem-kasir.test/ajax/categories/search',
+            processResults: function(data){
+                return {
+                    results: data.map(function(item){return {id: item.id, text:item.name} })
+                }
+            }
+        }
+    });
+    </script>
+    
 @endsection
