@@ -37,3 +37,5 @@ Route::get('/ajax/categories/search','CategoryController@ajaxSearch');
 Route::resource("categories", "CategoryController");
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/orders','OrderController@index')->name('orders');

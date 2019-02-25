@@ -32,10 +32,10 @@
             <br>
             <input type="checkbox" {{in_array("ADMIN", json_decode($user->roles)) ? "checked" : ""}} name="roles[]" id="ADMIN" value="ADMIN">
             <label for="ADMIN">Administrator</label>
-            <input type="checkbox" {{in_array("STAFF", json_decode($user->roles)) ? "checked" : ""}} name="roles[]" id="STAFF" value="STAFF">
-            <label for="STAFF">Staff</label>
-            <input type="checkbox" {{in_array("CUSTOMER", json_decode($user->roles)) ? "checked" : ""}} name="roles[]" id="CUSTOMER" value="CUSTOMER">
-            <label for="CUSTOMER">Customer</label>
+            <input type="checkbox" {{in_array("CASHIER", json_decode($user->roles)) ? "checked" : ""}} name="roles[]" id="CASHIER" value="CASHIER">
+            <label for="CASHIER">Cashier</label>
+            <input type="checkbox" {{in_array("WAITER", json_decode($user->roles)) ? "checked" : ""}} name="roles[]" id="WAITER" value="WAITER">
+            <label for="WAITER">Waiter</label>
             <br><br>
             <label for="phone">Phone number</label>
             <br>

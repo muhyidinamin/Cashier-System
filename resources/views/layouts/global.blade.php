@@ -15,6 +15,7 @@
     <title>Sistem Kasir | @yield("title")</title>
     <link rel="stylesheet" href="{{asset('polished/polished.min.css')}}">
     <link rel="stylesheet" href="{{asset('polished/iconic/css/open-iconic-bootstrap.min.css')}}">
+    <script src="{{asset('jquery/jquery.min.js')}}"></script>
     <style>
         .grid-highlight {
             padding-top: 1rem;
@@ -91,6 +92,12 @@
                     <a href="{{route('foods.index')}}">
                         <span class="oi oi-tag"></span>
                         Manage Food
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('orders')}}">
+                        <span class="oi oi-tag"></span>
+                        Manage Order
                     </a>
                 </li>
                 <div class="d-block d-md-none">
