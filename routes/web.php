@@ -39,3 +39,7 @@ Route::resource("categories", "CategoryController");
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/orders','OrderController@index')->name('orders');
+Route::get('/findPrice', 'OrderController@findPrice')->name('findPrice');
+Route::get('/orders/view', 'OrderController@view')->name('orders.view');
+Route::get('/orders/{id}/edit', 'OrderController@edit')->name('orders.edit');
+Route::post('/orders', 'OrderController@insert')->name('orders.insert');

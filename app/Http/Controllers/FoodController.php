@@ -102,15 +102,16 @@ class FoodController extends Controller
         $name = $request->get('name');
         $price = $request->get('price');
         $status = $request->get('status');
+        $category = $request->get('categories');
 
         $food = \App\Food::findOrFail($id);
 
-        $food->name = $name;
-        $food->slug = $slug;
+        $food->food_name = $name;
+        $food->price = $price;
+        $food->status = $status;
+        $food->category = $category;
 
         $food->updated_by = \Auth::user()->id;
-        $food->slug = str_slug($name);
-
         $food->save();
         return redirect()->route('foods.edit', ['id' => $id])->with('status', 'Food succesfully update');
     }

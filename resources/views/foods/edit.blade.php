@@ -17,7 +17,7 @@
             </div>
         @endif
         <form
-            action="{{route('categories.update', ['id' => $category->id])}}"
+            action="{{route('foods.update', ['id' => $food->id])}}"
             enctype="multipart/form-data"
             method="POST"
             class="bg-white shadow-sm p-3">
@@ -26,32 +26,30 @@
                 type="hidden"
                 value="PUT"
                 name="_method">
-            <label>Category name</label> <br>
+            <label>Food name</label> <br>
             <input
                 type="text"
                 class="form-control"
-                value="{{$category->name}}"
+                value="{{$food->food_name}}"
                 name="name">
             <br><br>
-            <label>Cateogry slug</label>
-            <input
-                type="text"
-                class="form-control"
-                value="{{$category->slug}}"
-                name="slug">
-            <br><br>
-            @if($category->image)
-                <span>Current image</span><br>
-                <img src="{{asset('storage/'. $category->image)}}" width="120px">
-                <br><br>
-            @endif
-            <input
-                type="file"
-                class="form-control"
-                name="image">
-            <small class="text-muted">Kosongkan jika tidak ingin mengubah
-                gambar</small>
-            <br><br>
+            <label>Category</label>
+            <select
+            name="categories"
+            id="categories"
+            class="form-control" required>
+            </select>
+            <br>
+            <label>Price</label><br>
+            <input type="text" class="form-control" name="price" value="{{$food->price}}">
+            <br>
+            <label>Status</label><br>
+            <input value="READY" name="status" type="radio" class="form-control" id="ready" {{$food->status == 'READY' ? 'checked' : ''}}>
+            <label for="ready">Ready</label>
+            <input value="SOLD OUT" name="status" type="radio" class="form-control" id="sold_out" {{$food->status == 'SOLD OUT' ? 'checked' : ''}}>
+            <label for="sold_out">Sold Out</label>
+            <br>
+            <br>
 
             <input type="submit" class="btn btn-primary" value="Update">
         </form>
@@ -59,3 +57,20 @@
 
 @endsection
 
+@section('footer-scripts')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script>
+    $('#categories').select2({
+        ajax: {
+            url: 'http://sistem-kasir.test/ajax/categories/search',
+            processResults: function(data){
+                return {
+                    results: data.map(function(item){return {id: item.id, text:item.name} })
+                }
+            }
+        }
+    });
+    </script>
+    
+@endsection

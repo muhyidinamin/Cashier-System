@@ -26,8 +26,25 @@ class OrderController extends Controller
     	return view('orders.info', ['foods' => $foods]);
     }
 
-    public function insert(){
-
+    public function insert(Request $request){
+        $orders = new Order;
+        $orders->id = $request->id;
+        $orders->name_cus = $request->name;
+        $orders->no_meja = $request->no;
+        $orders->created_by = \Auth::user()->id;
+        $orders->qty = 5;
+        $orders->total = 80000;
+        $orders->status = "OPEN";
+        if($orders->save()){
+            for($i=0;$i<count($request->qty);$i++) {
+                $data = array('order_id' => $request->id,
+                            'food_id' => $request->foodname[$i],
+                            'qty' => $request->qty[$i],
+                            'subtotal' => $request->subtotal[$i]);
+                DetailOrder::insert($data);
+            }
+        }
+        return back();
     }
 
     public function edit(){
@@ -37,5 +54,16 @@ class OrderController extends Controller
     public function update()
     {
     	
+    }
+
+    public function view(){
+        $orders = \App\Order::paginate(10);
+        return view('orders.index', ['orders' => $orders]);
+    }
+
+    public function findPrice(Request $request)
+    {
+       $data=Food::select('price')->where('id', $request->id)->first();
+       return response()->json($data);
     }
 }

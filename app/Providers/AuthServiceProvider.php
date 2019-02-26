@@ -35,7 +35,7 @@ class AuthServiceProvider extends ServiceProvider
         });
         Gate::define('manage-foods', function($user){
         // TODO: logika untuk mengizinkan manage foods
-            return count(array_intersect(["ADMIN"], json_decode($user->roles)));
+            return count(array_intersect(["ADMIN", "CASHIER", "WAITER"], json_decode($user->roles)));
         });
         Gate::define('manage-orders', function($user){
         // TODO: logika untuk mengizinkan manage orders

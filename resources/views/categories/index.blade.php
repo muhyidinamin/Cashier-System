@@ -68,8 +68,6 @@
                 <thead>
                 <tr>
                     <th><b>Name</b></th>
-                    <th><b>Slug</b></th>
-                    <th><b>Image</b></th>
                     <th><b>Actions</b></th>
                 </tr>
                 </thead>
@@ -77,16 +75,6 @@
                 @foreach ($categories as $category)
                     <tr>
                         <td>{{$category->name}}</td>
-                        <td>{{$category->slug}}</td>
-                        <td>
-                            @if($category->image)
-                                <img
-                                    src="{{asset('storage/' . $category->image)}}"
-                                    width="48px"/>
-                            @else
-                                No image
-                            @endif
-                        </td>
                         <td>
                             <a href="{{route('categories.edit', ['id' => $category->id])}}" class="btn btn-info btn-sm"> Edit </a>
                             <a href="{{route('categories.show', ['id' => $category->id])}}" class="btn btn-primary"> Show </a>
