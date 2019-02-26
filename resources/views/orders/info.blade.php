@@ -19,12 +19,12 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <input type="text" name="id" placeholder="Kode pesanan" class="form-control">
+                        <input type="text" name="id" class="form-control" value="<?php echo $kode ?>" readonly>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <input type="date" name="date" placeholder="Tgl transaksi" class="form-control">
+                        <input type="date" name="date" class="form-control" value="{{date("Y-m-j")}}" disabled="">
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -64,7 +64,7 @@
                                     </td>
                                     <td><input type="text" name="price[]" class="form-control price" disabled=""></td>
                                     <td><input type="text" name="qty[]" class="form-control qty"></td>
-                                    <td><input type="text" name="subtotal[]" class="form-control subtotal" disabled=""></td>
+                                    <td><input type="text" name="subtotal[]" class="form-control subtotal" readonly=""></td>
                                     <td><a href="#" class="btn btn-danger btn-sm remove"><i class="glyphicon glyphicon-remove">x</i></a></td>
                                 </tr>
                             </tbody>
@@ -74,7 +74,7 @@
                                     <td style="border: none"><b>Total Belanjaan<b></td>
                                     <td><b class="jumlah"></b></td>                          
                                     <td><b class="total"></b></td>
-                                    <td></td>                                         
+                                    <td></td>                                        
                                 </tr>
                             </tfoot>
                         </table>
@@ -126,7 +126,7 @@
             var subtotal = $(this).val()-0;
             total += subtotal;
         });
-        $('.total').html(total.formatMoney("Rp."+ 2, ".", ","));
+        $('.total').html("Rp. "+ total.formatMoney(2, ".", ","));
     }
 
     function jumlah(){
@@ -162,7 +162,7 @@
                     '</td>'+
                     '<td><input type="text" name="price[]" class="form-control price" disabled></td>'+
                     '<td><input type="text" name="qty[]" class="form-control qty"></td>'+
-                    '<td><input type="text" name="subtotal[]" class="form-control subtotal" disabled=""></td>'+
+                    '<td><input type="text" name="subtotal[]" class="form-control subtotal" readonly></td>'+
                     '<td><a href="#" class="btn btn-danger btn-sm remove"><i class="glyphicon glyphicon-remove">x</i></a></td></tr>';
         $('tbody').append(tr);
     };

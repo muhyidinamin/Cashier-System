@@ -22,8 +22,13 @@ class OrderController extends Controller
     }
 
     public function index(){
+        $today = date("dmY");
     	$foods = \App\Food::where('status', 'READY')->paginate(10);
-    	return view('orders.info', ['foods' => $foods]);
+        $noUrutAkhir = \App\Order::max('id');
+        $lastNoUrut = substr($noUrutAkhir, 12, 3);
+        $nextNoUrut = $lastNoUrut + 1;
+        $kode = 'ERP'.$today.sprintf('-%03s', $nextNoUrut);
+    	return view('orders.info', ['foods' => $foods],['kode' => $kode]);
     }
 
     public function insert(Request $request){
@@ -31,13 +36,19 @@ class OrderController extends Controller
         $orders->id = $request->id;
         $orders->name_cus = $request->name;
         $orders->no_meja = $request->no;
+        $jumlah = 0;
+        $total = 0; 
         $orders->created_by = \Auth::user()->id;
-        $orders->qty = 5;
-        $orders->total = 80000;
+        for($i=0;$i<count($request->qty);$i++) {
+            $jumlah += $request->qty[$i];
+            $total += $request->subtotal[$i];
+        }
+        $orders->qty = $jumlah;
+        $orders->total = $total;
         $orders->status = "OPEN";
         if($orders->save()){
             for($i=0;$i<count($request->qty);$i++) {
-                $data = array('order_id' => $request->id,
+                $data = array('order_id' => $orders->id,
                             'food_id' => $request->foodname[$i],
                             'qty' => $request->qty[$i],
                             'subtotal' => $request->subtotal[$i]);
