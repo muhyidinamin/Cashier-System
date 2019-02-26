@@ -64,7 +64,7 @@
                                     </td>
                                     <td><input type="text" name="price[]" class="form-control price" disabled=""></td>
                                     <td><input type="text" name="qty[]" class="form-control qty"></td>
-                                    <td><input type="text" name="subtotal[]" class="form-control subtotal"></td>
+                                    <td><input type="text" name="subtotal[]" class="form-control subtotal" disabled=""></td>
                                     <td><a href="#" class="btn btn-danger btn-sm remove"><i class="glyphicon glyphicon-remove">x</i></a></td>
                                 </tr>
                             </tbody>
@@ -112,16 +112,21 @@
         jumlah();
         total();
     });
+
+
     $('.addRow').on('click', function(){
         addRow();
     });
+
+    /*findRowNumOnly('.qty');*/
+
     function total(){
         var total=0;
         $('.subtotal').each(function(i,e){
             var subtotal = $(this).val()-0;
             total += subtotal;
         });
-        $('.total').html(total.formatMoney("Rp."+ 2, ",", "."));
+        $('.total').html(total.formatMoney("Rp."+ 2, ".", ","));
     }
 
     function jumlah(){
@@ -157,10 +162,11 @@
                     '</td>'+
                     '<td><input type="text" name="price[]" class="form-control price" disabled></td>'+
                     '<td><input type="text" name="qty[]" class="form-control qty"></td>'+
-                    '<td><input type="text" name="subtotal[]" class="form-control subtotal"></td>'+
+                    '<td><input type="text" name="subtotal[]" class="form-control subtotal" disabled=""></td>'+
                     '<td><a href="#" class="btn btn-danger btn-sm remove"><i class="glyphicon glyphicon-remove">x</i></a></td></tr>';
         $('tbody').append(tr);
     };
+
     $('body').delegate('.remove', 'click', function(){
         var l=$('tbody tr').length;
         if(l==1){
@@ -171,5 +177,44 @@
             total();
         }
     });
+
+    /*function findRowNum(input) {
+        $('tbody').delegate(input, 'keydown', function(){
+            var tr = $(this).parent().parent();
+            number(tr.find(input));
+        });
+    }
+
+    function findRowNumOnly(argument) {
+        $('tbody').delegate(input, 'keydown', function(){
+            var tr = $(this).parent().parent();
+            numberOnly(tr.find(input));
+        });
+    }
+
+    function number(input) {
+        $(input).keypress(function(evt){
+            var theEvent = evt || window.event;
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+            var regex = /[-\d\.]/;
+            var objRegex = /^-?\d*[\.]?\d*$/;
+            var val = $(evt.target).val();
+            if(!regex.test(key) || !objRegex.test(val+key) || !theEvent.keyCode == 46 || !theEvent.keyCode == 8){
+                theEvent.returnValue = false;
+                if(theEvent.preventDefault) theEvent.preventDefault();
+            };  
+        });
+    };
+
+    function numberOnly(input){
+        $(input).keypress(function(evt){
+            var e = event || evt;
+            var charCode = e.which || e.keyCode;
+            if(charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+            return true;
+        });
+    }*/
 </script>
 @endsection

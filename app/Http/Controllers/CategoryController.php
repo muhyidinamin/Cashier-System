@@ -100,6 +100,8 @@ class CategoryController extends Controller
 
         $category->name = $name;
         $category->updated_by = \Auth::user()->id;
+        $category->slug = str_slug($name, '-');
+
         $category->save();
         return redirect()->route('categories.edit', ['id' => $id])->with('status', 'Category succesfully update');
     }

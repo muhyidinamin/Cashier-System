@@ -56,8 +56,29 @@ class OrderController extends Controller
     	
     }
 
-    public function view(){
+    public function view(Request $request){
         $orders = \App\Order::paginate(10);
+
+        $filterKeyword = $request->get('keyword');
+
+        $status = $request->get('status');
+        if($status){
+            $orders = \App\Order::where('status', $status)->paginate(10);
+        } else {
+            $orders = \App\Order::paginate(10);
+        }
+
+        if($filterKeyword){
+            if($status){
+                $orders = \App\Order::where('id', 'LIKE', "%$filterKeyword%")
+                    ->where('status', $status)
+                    ->paginate(10);
+            } else {
+                $orders = \App\Order::where('id', 'LIKE', "%$filterKeyword%")
+                    ->paginate(10);
+            }
+        }
+
         return view('orders.index', ['orders' => $orders]);
     }
 

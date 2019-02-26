@@ -100,6 +100,12 @@
                         Manage Order
                     </a>
                 </li>
+                <li>
+                    <a href="{{route('orders.view')}}">
+                        <span class="oi oi-tag"></span>
+                        View Order
+                    </a>
+                </li>
                 <div class="d-block d-md-none">
                     <div class="dropdown-divider"></div>
                     <li><a href="#"> Profile</a></li>

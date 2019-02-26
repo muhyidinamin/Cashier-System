@@ -1,9 +1,9 @@
 @extends("layouts.global");
-@section("title") Users list @endsection
+@section("title") Orders list @endsection
 @section("content")
     <div class="row">
         <div class="col-md-6">
-            <form action="{{route('users.index')}}">
+            <form action="{{route('orders.view')}}">
                 <div class="row">
                     <div class="col-md-6">
                         <input
@@ -11,7 +11,7 @@
                             name="keyword"
                             class="form-control"
                             type="text"
-                            placeholder="Masukan email untuk filter..."/>
+                            placeholder="Masukan kode untuk filter..."/>
                     </div>
                     <div class="col-md-6">
                         <input {{Request::get('status') == 'OPEN' ? 'checked' : ''}}
@@ -46,8 +46,8 @@
     <div class="row">
         <div class="col-md-12 text-right">
             <a
-                href="{{route('users.create')}}"
-                class="btn btn-primary">Create user</a>
+                href="{{route('orders')}}"
+                class="btn btn-primary">Add Order</a>
         </div>
     </div>
     <br>
