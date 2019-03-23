@@ -100,6 +100,12 @@
                         Manage Order
                     </a>
                 </li>
+                <li>
+                    <a href="#">
+                        <span class="oi oi-tag"></span>
+                        Print Report
+                    </a>
+                </li>
                 <div class="d-block d-md-none">
                     <div class="dropdown-divider"></div>
                     <li><a href="#"> Profile</a></li>

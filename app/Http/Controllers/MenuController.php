@@ -21,12 +21,12 @@ class MenuController extends Controller
                 'method' => 'GET'
             ];
         }
-        $respone = [
+        $response = [
             'msg'=>'List all Food',
             'menus'=> $menus
         ];
 
-        return response()->json($respone, 200);
+        return response()->json($response, 200);
     }
 
     /**
@@ -41,32 +41,49 @@ class MenuController extends Controller
             'name' => 'required',
             'category' => 'required',
             'price' => 'required',
-            'status' => 'required'
+            'status' => 'required',
+            'user_id' => 'required'
         ]);
 
         $name = $request->input('name');
         $category = $request->input('category');
         $price = $request->input('price');
         $status = $request->input('status');
+        $user_id = $request->input('user_id');
+        $menu = new Food();
 
-        $menu = [
-            'name' => $name, 
+        /*$menu = new Food([
+            'food_name' => $name, 
             'category' => $category, 
             'price' => $price, 
-            'status' => $status, 
-            'view_menu' => [
-                'href' => 'api/v1/menu/1',
-                'method'=> 'GET' 
-            ]
+            'status' => $status,
+            'created_by'=> $user_id
+        ]); */
+
+        $menu->food_name = $name;
+        $menu->price = $price;
+        $menu->status = $status;
+        $menu->category = $category;
+        $menu->created_by = $user_id; 
+
+        if($menu->save()){
+            //$menu->users()->attach($user_id);
+            $menu->view_menu = [
+                'href' => 'api/v1/menu/'.$menu->id,
+                'method' => 'GET'
+            ];
+            $message = [
+                'msg' => 'Food added',
+                'menu' => $menu
+            ];
+            return response()->json($message, 201);
+        }
+
+        $response = [
+            'msg' => 'Error during creation'
         ];
 
-        $respone = [
-            'msg' => 'Menu Created',
-            'data' => $menu
-        ];
-
-        return response()->json($respone, 201);
-
+        return response()->json($response, 404);
     }
 
     /**
@@ -77,7 +94,17 @@ class MenuController extends Controller
      */
     public function show($id)
     {
-        return "It's work";
+        $menu = Food::where('id', $id)->firstOrFail();
+        $menu->view_menus = [
+            'href' => 'api/v1/menu',
+            'method' => 'GET'
+        ];
+
+        $response = [
+            'msg' => 'Menu Information',
+            'menu' => $menu
+        ];
+        return response()->json($response, 200);
     }
 
     /**
@@ -89,7 +116,49 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return "It's work";
+        $this->validate($request, [
+            'name' => 'required',
+            'category' => 'required',
+            'price' => 'required',
+            'status' => 'required',
+            'user_id' => 'required'
+        ]);
+
+        $name = $request->input('name');
+        $category = $request->input('category');
+        $price = $request->input('price');
+        $status = $request->input('status');
+        $user_id = $request->input('user_id');
+
+        $menu = Food::findOrFail($id);
+
+        /* if(!$menu->users()->where('users.id', $user_id)->first()){
+            return response()->json(['msg' => 'user not registered for menu, update not succesful'], 401);
+        } */
+
+        $menu->food_name = $name;
+        $menu->category = $category;
+        $menu->price = $price;
+        $menu->status = $status;
+        $menu->updated_by = $user_id;
+
+        if(!$menu->update()){
+            return response()->json([
+                'msg' => 'Error during update'
+            ],404);
+        }
+
+        $menu->view_menu = [
+            'href' => 'api/v1/menu/'.$menu->id,
+            'method' => 'GET'
+        ];
+
+        $response = [
+            'msg' => 'Menu Updated',
+            'menu' => $menu
+        ];
+
+        return response()->json($response, 200);
     }
 
     /**
@@ -100,6 +169,25 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        return "It's work";
+        $menu = Food::findOrFail($id);
+
+        if(!$menu->delete()){
+            foreach ($users as $user){
+                $menu->users()->attach($user);
+            }
+            return response()->json([
+                'msg' => 'Deletion Failed'
+            ], 404);
+        }
+
+        $response = [
+            'msg' => 'Menu deleted',
+            'create' => [
+                'href' => 'api/v1/menu',
+                'method' => 'POST',
+                'params' => 'name, category, price, status'
+            ]
+        ];
+        return response()->json($response, 200);
     }
 }
