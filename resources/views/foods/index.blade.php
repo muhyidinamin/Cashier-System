@@ -79,7 +79,7 @@
                     <tr>
                         <td>{{$food->food_name}}</td>
                         <td>{{$food->price}}</td>
-                        <td>{{$food->category}}</td>
+                        <td>{{$food->name}}</td>
                         <td>
                             @if($food->status == "READY")
                                 <span class="badge badge-success">

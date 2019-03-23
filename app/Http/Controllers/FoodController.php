@@ -23,11 +23,11 @@ class FoodController extends Controller
      */
     public function index(Request $request)
     {
-        $foods = \App\Food::paginate(10);
+        $foods = \App\Food::leftJoin('categories', 'foods.category', '=', 'categories.id')->paginate(10);
 
-        $filterKeyword = $request->get('food_name');
+        $filterKeyword = $request->get('name');
         if($filterKeyword){
-            $foods = \App\Food::where("food_name", "LIKE", "%$filterKeyword%")->paginate(10);
+            $foods = \App\Food::leftJoin('categories', 'foods.category', '=', 'categories.id')->where("food_name", "LIKE", "%$filterKeyword%")->paginate(10);
         }
         return view('foods.index', ['foods' => $foods]);
     }

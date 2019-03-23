@@ -95,15 +95,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('orders')}}">
+                    <a href="{{route('orders.index')}}">
                         <span class="oi oi-tag"></span>
                         Manage Order
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('orders.view')}}">
-                        <span class="oi oi-tag"></span>
-                        View Order
                     </a>
                 </li>
                 <div class="d-block d-md-none">

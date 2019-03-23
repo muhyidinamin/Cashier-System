@@ -14,12 +14,21 @@
                 {{session('status')}}
             </div>
         @endif
-        <form action="{{route('orders.store')}}" id="frmsave" method="post">
+        <form
+            action="{{route('orders.update', ['id' => $order->id])}}"
+            enctype="multipart/form-data"
+            method="POST"
+            class="bg-white shadow-sm p-3">
             @csrf
+            <input
+                type="hidden"
+                value="PUT"
+                name="_method">
+
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <input type="text" name="id" class="form-control" value="<?php echo $kode ?>" readonly>
+                        <input type="text" name="id" class="form-control" value="{{$order->id}}" readonly>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -29,12 +38,20 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <input type="text" name="name" placeholder="Nama Pelanggan" class="form-control">
+                        <input type="text" name="name" placeholder="Nama Pelanggan" class="form-control" value="{{$order->name_cus}}">
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <input type="text" name="no" placeholder="No. Meja" class="form-control">
+                        <input type="text" name="no" placeholder="No. Meja" class="form-control" value="{{$order->no_meja}}">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <input value="OPEN" name="status" type="radio" class="form-control" id="open" {{$order->status == 'OPEN' ? 'checked' : ''}}>
+                        <label for="open">Open</label>
+                        <input value="CLOSE" name="status" type="radio" class="form-control" id="close" {{$order->status == 'CLOSE' ? 'checked' : ''}}>
+                        <label for="close">Close</label>
                     </div>
                 </div>
                 <div class="col-lg-2 col-sm-2">
@@ -42,7 +59,7 @@
                         <input type="submit" name="simpan" value="save" class="btn btn-primary">
                     </div>
                 </div>
-                <div class="col-lg-12 col-sm-12">
+ <!--                <div class="col-lg-12 col-sm-12">
                     <div class="form-group">
                         <table class="table table-bordered">
                             <thead>
@@ -56,7 +73,7 @@
                                 <tr>
                                     <td>
                                         <select class="form-control foodname" name="foodname[]">
-                                            <option value="0" selected="true" disabled="true">Select Food</option>
+                                            <option selected="true" disabled="true">Select Food</option>
                                             @foreach($foods as $food)
                                             <option value="{{$food->id}}">{{$food->food_name}}</option>
                                             @endforeach
@@ -78,8 +95,8 @@
                                 </tr>
                             </tfoot>
                         </table>
-                    </div>
-                </div>
+                    </div> 
+                </div> --> 
             </div>    
         </form>
     </div>

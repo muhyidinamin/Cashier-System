@@ -3,7 +3,7 @@
 @section("content")
     <div class="row">
         <div class="col-md-6">
-            <form action="{{route('orders.view')}}">
+            <form action="{{route('orders.index')}}">
                 <div class="row">
                     <div class="col-md-6">
                         <input
@@ -46,7 +46,7 @@
     <div class="row">
         <div class="col-md-12 text-right">
             <a
-                href="{{route('orders')}}"
+                href="{{route('orders.create')}}"
                 class="btn btn-primary">Add Order</a>
         </div>
     </div>
@@ -82,15 +82,10 @@
                 </td>
                 <td>
                     <a class="btn btn-info text-white btn-sm" href="{{route('orders.edit',['id'=>$order->id])}}">Edit</a>
-                    @if(session('status'))
-                        <div class="alert alert-success">
-                            {{session('status')}}
-                        </div>
-                    @endif
                     <form
                         onsubmit="return confirm('Delete this user permanently?')"
                         class="d-inline"
-                        action="#"
+                        action="{{route('orders.destroy', ['id' => $order->id])}}"
                         method="POST">
                         @csrf
                         <input

@@ -12,7 +12,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-6">
-            <form action="{{route('categories.index')}}">
+            <form action="{{route('foods.index')}}">
                 <div class="input-group">
                     <input
                         type="text"
@@ -33,11 +33,11 @@
             <ul class="nav nav-pills card-header-pills">
                 <li class="nav-item">
                     <a class="nav-link" href="
-{{route('categories.index')}}">Published</a>
+{{route('foods.index')}}">Published</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="
-{{route('categories.trash')}}">Trash</a>
+{{route('foods.trash')}}">Trash</a>
                 </li>
             </ul>
         </div>
@@ -48,29 +48,36 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>Nama</th>
-                    <th>Slug</th>
-                    <th>Image</th>
-                    <th>Action</th>
+                    <th><b>Food Name</b></th>
+                    <th><b>Price</b></th>
+                    <th><b>Category</b></th>
+                    <th><b>Status</b></th>
+                    <th><b>Actions</b></th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($categories as $category)
+                @foreach($foods as $food)
                     <tr>
-                        <td>{{$category->name}}</td>
-                        <td>{{$category->slug}}</td>
+                    <td>{{$food->food_name}}</td>
+                        <td>{{$food->price}}</td>
+                        <td>{{$food->name}}</td>
                         <td>
-                            @if($category->image)
-                                <img src="{{asset('storage/' . $category->image)}}"
-                                     width="48px"/>
+                            @if($food->status == "READY")
+                                <span class="badge badge-success">
+                                {{$food->status}}
+                                </span>
+                            @else
+                                <span class="badge badge-danger">
+                                {{$food->status}}
+                                </span>
                             @endif
                         </td>
                         <td>
-                            <a href="{{route('categories.restore', ['id' => $category->id])}}" class="btn btn-success">Restore</a>
+                            <a href="{{route('foods.restore', ['id' => $food->id])}}" class="btn btn-success">Restore</a>
                             <form class="d-inline"
-                                action="{{route('categories.delete-permanent', ['id' => $category->id])}}"
+                                action="{{route('foods.delete-permanent', ['id' => $food->id])}}"
                                 method="POST"
-                                onsubmit="return confirm('Delete this category permanently?')">
+                                onsubmit="return confirm('Delete this Food permanently?')">
                                 @csrf
                                 <input type="hidden" name="_method" value="DELETE"/>
                                 <input type="submit" class="btn btn-danger btn-sm" value="Delete"/>
@@ -82,7 +89,7 @@
                 <tfoot>
                 <tr>
                     <td colSpan="10">
-                        {{$categories->appends(Request::all())->links()}}
+                        {{$foods->appends(Request::all())->links()}}
                     </td>
                 </tr>
                 </tfoot>
