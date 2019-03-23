@@ -103,7 +103,7 @@
                             class="btn btn-danger btn-sm">
                     </form>
                     <a
-                        href="#"
+                        href="{{route('orders.show', ['id' => $order->id])}}"
                         class="btn btn-primary btn-sm">Detail</a>
                 </td>
             </tr>

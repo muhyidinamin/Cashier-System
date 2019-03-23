@@ -67,6 +67,16 @@ class OrderController extends Controller
     	
     }
 
+    public function show($id)
+    {
+        $order = DB::table('orders')->where('order_id', $id)
+            ->join('details_order', 'orders.id', '=', 'details_order.order_id')
+            ->get();
+
+        return view('orders.detail', ['orders' => $order]);
+        //return dd($order);
+    }
+
     public function view(Request $request){
         $orders = \App\Order::paginate(10);
 
