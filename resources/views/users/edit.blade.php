@@ -12,8 +12,12 @@
         <form enctype="multipart/form-data" class="bg-white shadow-sm p-3" action="{{route('users.update', ['id'=>$user->id])}}" method="POST">
             @csrf
             <input type="hidden" value="PUT" name="_method">
-            <label for="name">Name</label>
-            <input value="{{$user->name}}" class="form-control" placeholder="Full Name" type="text" name="name" id="name"/>
+            <label for="name">Nama</label>
+            <input value="{{old('name') ? old('name') : $user->name}}" class="form-control {{$errors->first('name') ? "is-invalid" : ""}}" 
+            placeholder="Full Name" type="text" name="name" id="name"/>
+            <div class="invalid-feedback">
+            {{$errors->first('name')}}
+            </div>
             <br>
 
             <label for="username">Username</label>
@@ -30,24 +34,41 @@
 
             <label for="">Roles</label>
             <br>
-            <input type="checkbox" {{in_array("ADMIN", json_decode($user->roles)) ? "checked" : ""}} name="roles[]" id="ADMIN" value="ADMIN">
+            <input type="checkbox" {{in_array("ADMIN", json_decode($user->roles)) ? "checked" : ""}} name="roles[]" 
+            class="form-control {{$errors->first('roles') ? "is-invalid" : "" }}" id="ADMIN" value="ADMIN">
             <label for="ADMIN">Administrator</label>
-            <input type="checkbox" {{in_array("CASHIER", json_decode($user->roles)) ? "checked" : ""}} name="roles[]" id="CASHIER" value="CASHIER">
-            <label for="CASHIER">Cashier</label>
-            <input type="checkbox" {{in_array("WAITER", json_decode($user->roles)) ? "checked" : ""}} name="roles[]" id="WAITER" value="WAITER">
-            <label for="WAITER">Waiter</label>
-            <br><br>
-            <label for="phone">Phone number</label>
+            <input type="checkbox" {{in_array("CASHIER", json_decode($user->roles)) ? "checked" : ""}} name="roles[]" 
+            class="form-control {{$errors->first('roles') ? "is-invalid" : "" }}" id="CASHIER" value="CASHIER">
+            <label for="CASHIER">Kasir</label>
+            <input type="checkbox" {{in_array("WAITER", json_decode($user->roles)) ? "checked" : ""}} name="roles[]" 
+            class="form-control {{$errors->first('roles') ? "is-invalid" : "" }}" id="WAITER" value="WAITER">
+            <label for="WAITER">Pelayan</label>
+            <div class="invalid-feedback">
+            {{$errors->first('roles')}}
+            </div>
             <br>
-            <input type="text" name="phone" class="form-control" value="{{$user->phone}}">
+            
             <br>
-            <label for="address">Address</label>
-            <textarea name="address" id="address" class="form-control">{{$user->address}}
+            <label for="phone">No Telepon</label>
+            <br>
+            <input type="text" name="phone" class="form-control {{$errors->first('phone') ? "is-invalid" : ""}}" 
+            value="{{old('phone') ? old('phone') : $user->phone}}">
+            <div class="invalid-feedback">
+            {{$errors->first('phone')}}
+            </div>
+            <br>
+
+            <label for="address">Alamat</label>
+            <textarea name="address" id="address" class="form-control {{$errors->first('address') ? "is-invalid" : ""}}">
+            {{old('address') ? old('address') : $user->address}}
             </textarea>
+            <div class="invalid-feedback">
+            {{$errors->first('address')}}
+            </div>
             <br>
-            <label for="avatar">Avatar image</label>
+            <label for="avatar">Gambar Avatar</label>
             <br>
-            Current avatar: <br>
+            Avatar saat ini : <br>
             @if($user->avatar)
                 <img src="{{asset('storage/'.$user->avatar)}}" width="120px" />
                 <br>
@@ -57,9 +78,14 @@
             <br>
             <input id="avatar" name="avatar" type="file" class="form-control">
             <small class="text-muted">Kosongkan jika tidak ingin mengubah avatar</small>
+
             <hr class="my-3">
             <label for="email">Email</label>
-            <input value="{{$user->email}}" disabled class="form-control" placeholder="user@mail.com" type="text" name="email" id="email"/>
+            <input value="{{$user->email}}" disabled class="form-control {{$errors->first('email') ? "is-invalid" : ""}}" 
+            placeholder="user@mail.com" type="text" name="email" id="email"/>
+            <div class="invalid-feedback">
+            {{$errors->first('email')}}
+            </div>
             <br>
             <input class="btn btn-primary" type="submit" value="Save"/>
         </form>

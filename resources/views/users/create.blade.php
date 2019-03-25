@@ -1,6 +1,6 @@
 @extends("layouts.global")
 
-@section("title") Create User @endsection
+@section("title") Tambah User @endsection
 
 @section("content")
     <div class="col-md-8">
@@ -11,41 +11,82 @@
         @endif
         <form enctype="multipart/form-data" class="bg-white shadow-sm p-3" action="{{route('users.store')}}" method="POST" >
             @csrf
-            <label for="name">Name</label>
-            <input class="form-control" placeholder="Full Name" type="text" name="name" id="name">
+            <label for="name">Nama</label>
+            <input value="{{old('name')}}" class="form-control {{$errors->first('name') ? "is-invalid": ""}}" 
+            placeholder="Full Name" type="text" name="name" id="name">
+            <div class="invalid-feedback">
+            {{$errors->first('name')}}
+            </div>
             <br>
+
             <label for="username">Username</label>
-            <input class="form-control" placeholder="Username" type="text" name="username" id="username">
+            <input value="{{old('username')}}" class="form-control {{$errors->first('username') ? "is-invalid" : ""}}" 
+            placeholder="Username" type="text" name="username" id="username">
+            <div class="invalid-feedback">
+            {{$errors->first('username')}}
+            </div>
             <br>
+
             <label for="">Roles</label>
             <br>
-            <input type="checkbox" name="roles[]" id="ADMIN" value="ADMIN">
+            <input class="form-control {{$errors->first('roles') ? "is-invalid" : ""}}" type="checkbox" name="roles[]" 
+            id="ADMIN" value="ADMIN">
             <label for="ADMIN">Administrator</label>
-            <input type="checkbox" name="roles[]" id="CASHIER" value="CASHIER">
-            <label for="CASHIER">Cashier</label>
-            <input type="checkbox" name="roles[]" id="WAITER" value="WAITER">
-            <label for="WAITER">Waiter</label>
+            <input class="form-control {{$errors->first('roles') ? "is-invalid" : ""}}" type="checkbox" name="roles[]" 
+            id="CASHIER" value="CASHIER">
+            <label for="CASHIER">Kasir</label>
+            <input class="form-control {{$errors->first('roles') ? "is-invalid" : ""}}" type="checkbox" name="roles[]" 
+            id="WAITER" value="WAITER">
+            <label for="WAITER">Pelayan</label>
+            <div class="invalid-feedback">
+            {{$errors->first('roles')}}
+            </div>
             <br>
+
             <br>
-            <label for="phone">Phone number</label>
+            <label for="phone">Nomer telepon</label>
             <br>
-            <input type="text" name="phone" class="form-control">
+            <input value="{{old('phone')}}" type="text" name="phone" class="form-control {{$errors->first('phone') ? "is-invalid" : ""}}"> 
+            <div class="invalid-feedback">
+            {{$errors->first('phone')}}
+            </div>
             <br>
-            <label for="address">Address</label>
-            <textarea name="address" id="address" class="form-control"></textarea>
+
+            <label for="address">Alamat</label>
+            <textarea name="address" id="address" class="form-control {{$errors->first('address') ? "is-invalid" : ""}}">{{old('address')}}</textarea>
+            <div class="invalid-feedback">
+            {{$errors->first('address')}}
+            </div>
             <br>
-            <label for="avatar">Avatar image</label>
+
+            <label for="avatar">Gambar Avatar</label>
             <br>
-            <input id="avatar" name="avatar" type="file" class="form-control">
+            <input id="avatar" name="avatar" type="file" class="form-control {{$errors->first('avatar') ? "is-invalid" : ""}}">
+            <div class="invalid-feedback">
+            {{$errors->first('avatar')}}
+            </div>
+
             <hr class="my-3">
             <label for="email">Email</label>
-            <input class="form-control" placeholder="user@mail.com" type="text" name="email" id="email"/>
+            <input value="{{old('email')}}" class="form-control {{$errors->first('email') ? "is-invalid" : ""}}" placeholder="user@mail.com" type="text" name="email" id="email"/>
+            <div class="invalid-feedback">
+            {{$errors->first('email')}}
+            </div>
             <br>
+
             <label for="password">Password</label>
-            <input class="form-control" placeholder="password" type="password" name="password" id="password"/>
+            <input class="form-control {{$errors->first('password') ? "isinvalid": ""}}" placeholder="password" 
+            type="password" name="password" id="password"/>
+            <div class="invalid-feedback">
+            {{$errors->first('password')}}
+            </div>
             <br>
-            <label for="password_confirmation">Password Confirmation</label>
-            <input class="form-control" placeholder="password confirmation" type="password" name="password_confirmation" id="password_confirmation"/>
+
+            <label for="password_confirmation">Konfirmasi password</label>
+            <input class="form-control {{$errors->first('password_confirmation')? "is-invalid" : ""}}" placeholder="password confirmation" type="password" name="password_confirmation" id="password_confirmation"/>
+            <div class="invalid-feedback">
+            {{$errors->first('password_confirmation')}}
+            </div>
             <br>
             <input class="btn btn-primary" type="submit" value="Save"/>
         </form>

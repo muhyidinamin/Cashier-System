@@ -6,27 +6,41 @@
  */
 ?>
 @extends('layouts.global')
-@section('title') Food list @endsection
+@section('title') List Makanan @endsection
 @section('content')
     <div class="row">
         <div class="col-md-6">
             <form action="{{route('foods.index')}}">
-
-                <div class="input-group">
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Filter by food name"
-                        value="{{Request::get('name')}}"
-                        name="name">
-
-                    <div class="input-group-append">
-                        <input
-                            type="submit"
-                            value="Filter"
-                            class="btn btn-primary">
+                <div class="row">
+                        <div class="col-md-6">
+                            <input
+                                value="{{Request::get('keyword')}}"
+                                name="keyword"
+                                class="form-control"
+                                type="text"
+                                placeholder="Masukan keyword untuk filter..."/>
+                        </div>
+                        <div class="col-md-6">
+                            <input {{Request::get('status') == 'READY' ? 'checked' : ''}}
+                                value="READY"
+                                name="status"
+                                type="radio"
+                                class="form-control"
+                                id="active">
+                            <label for="active">Ready</label>
+                            <input {{Request::get('status') == 'SOLD OUT' ? 'checked' : ''}}
+                                value="SOLD OUT"
+                                name="status"
+                                type="radio"
+                                class="form-control"
+                                id="inactive">
+                            <label for="inactive">Sold Out</label>
+                            <input
+                                type="submit"
+                                value="Filter"
+                                class="btn btn-primary">
+                        </div>
                     </div>
-                </div>
             </form>
         </div>
 
@@ -58,8 +72,7 @@
 
             <div class="row">
                 <div class="col-md-12 text-right">
-                    <a href="{{route('foods.create')}}" class="btn btn-primary">Add
-                        Food</a>
+                    <a href="{{route('foods.create')}}" class="btn btn-primary">Tambah Makanan</a>
                 </div>
             </div>
             <br>
@@ -67,9 +80,9 @@
             <table class="table table-bordered table-stripped">
                 <thead>
                 <tr>
-                    <th><b>Food Name</b></th>
-                    <th><b>Price</b></th>
-                    <th><b>Category</b></th>
+                    <th><b>Nama Makanan</b></th>
+                    <th><b>Kategori</b></th>
+                    <th><b>Harga</b></th>
                     <th><b>Status</b></th>
                     <th><b>Actions</b></th>
                 </tr>
@@ -78,8 +91,8 @@
                 @foreach ($foods as $food)
                     <tr>
                         <td>{{$food->food_name}}</td>
+                                                <td>{{$food->name}}</td>
                         <td>{{$food->price}}</td>
-                        <td>{{$food->name}}</td>
                         <td>
                             @if($food->status == "READY")
                                 <span class="badge badge-success">

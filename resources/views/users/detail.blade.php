@@ -4,7 +4,7 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-body">
-                <b>Name:</b> <br/>
+                <b>Nama :</b> <br/>
                 {{$user->name}}
                 <br><br>
                 @if($user->avatar)
@@ -18,10 +18,10 @@
                 {{$user->email}}
                 <br>
                 <br>
-                <b>Phone number</b> <br>
+                <b>Nomer telepon</b> <br>
                 {{$user->phone}}
                 <br><br>
-                <b>Address</b> <br>
+                <b>Alamat</b> <br>
                 {{$user->address}}
                 <br>
                 <br>

@@ -50,6 +50,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        \Validator::make($request->all(), [
+            "name" => "required|min:3|max:20"
+        ])->validate();
+
         $name = $request->get('name');
 
         $new_category = new \App\Category;
@@ -94,6 +98,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        \Validator::make($request->all(), [
+            "name" => "required|min:3|max:20"
+        ])->validate();
+
         $name = $request->get('name');
 
         $category = \App\Category::findOrFail($id);

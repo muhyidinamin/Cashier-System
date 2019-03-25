@@ -8,7 +8,7 @@
 ?>
 
 @extends('layouts.global')
-@section('title') Trashed Categories @endsection
+@section('title') Trashed Kategori @endsection
 @section('content')
     <div class="row">
         <div class="col-md-6">
@@ -17,7 +17,7 @@
                     <input
                         type="text"
                         class="form-control"
-                        placeholder="Filter by category name"
+                        placeholder="Filter Nama Kategori"
                         value="{{Request::get('name')}}"
                         name="name">
                     <div class="input-group-append">
@@ -48,23 +48,14 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>Nama</th>
-                    <th>Slug</th>
-                    <th>Image</th>
-                    <th>Action</th>
+                    <th><b>Nama Kategori</b></th>
+                    <th><b>Actions</b></th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($categories as $category)
                     <tr>
                         <td>{{$category->name}}</td>
-                        <td>{{$category->slug}}</td>
-                        <td>
-                            @if($category->image)
-                                <img src="{{asset('storage/' . $category->image)}}"
-                                     width="48px"/>
-                            @endif
-                        </td>
                         <td>
                             <a href="{{route('categories.restore', ['id' => $category->id])}}" class="btn btn-success">Restore</a>
                             <form class="d-inline"

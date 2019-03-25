@@ -8,7 +8,7 @@
 ?>
 
 @extends('layouts.global')
-@section('title') Trashed Categories @endsection
+@section('title') Trashed Makanan @endsection
 @section('content')
     <div class="row">
         <div class="col-md-6">
@@ -17,7 +17,7 @@
                     <input
                         type="text"
                         class="form-control"
-                        placeholder="Filter by category name"
+                        placeholder="Filter Nama Makanan"
                         value="{{Request::get('name')}}"
                         name="name">
                     <div class="input-group-append">
@@ -48,9 +48,9 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th><b>Food Name</b></th>
-                    <th><b>Price</b></th>
-                    <th><b>Category</b></th>
+                    <th><b>Nama Makanan</b></th>
+                    <th><b>Harga</b></th>
+                    <th><b>Kategori</b></th>
                     <th><b>Status</b></th>
                     <th><b>Actions</b></th>
                 </tr>

@@ -29,12 +29,20 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <input type="text" name="name" placeholder="Nama Pelanggan" class="form-control">
+                        <input value="{{old('name')}}" type="text" name="name" placeholder="Nama Pelanggan" 
+                        class="form-control {{$errors->first('name') ? "is-invalid" : ""}}">
+                        <div class="invalid-feedback">
+                        {{$errors->first('name')}}
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <input type="text" name="no" placeholder="No. Meja" class="form-control">
+                        <input value="{{old('no')}}" type="text" name="no" placeholder="No. Meja" 
+                        class="form-control {{$errors->first('name') ? "is-invalid" : ""}}">
+                        <div class="invalid-feedback">
+                        {{$errors->first('no')}}
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-2 col-sm-2">

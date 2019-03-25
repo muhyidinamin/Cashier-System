@@ -58,6 +58,11 @@ class OrderController extends Controller
     }
 
     public function store(Request $request){
+        \Validator::make($request->all(), [
+            "name" => "required",
+            "no" => "required"
+        ])->validate();
+        
         $orders = new Order;
         $orders->id = $request->id;
         $orders->name_cus = $request->name;

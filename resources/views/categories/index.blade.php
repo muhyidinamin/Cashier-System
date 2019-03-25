@@ -6,7 +6,7 @@
  */
 ?>
 @extends('layouts.global')
-@section('title') Category list @endsection
+@section('title') List Kategori @endsection
 @section('content')
     <div class="row">
         <div class="col-md-6">
@@ -16,7 +16,7 @@
                     <input
                         type="text"
                         class="form-control"
-                        placeholder="Filter by category name"
+                        placeholder="Filter Nama Kategori"
                         value="{{Request::get('name')}}"
                         name="name">
 
@@ -58,8 +58,7 @@
 
             <div class="row">
                 <div class="col-md-12 text-right">
-                    <a href="{{route('categories.create')}}" class="btn btn-primary">Create
-                        category</a>
+                    <a href="{{route('categories.create')}}" class="btn btn-primary">Tambah Kategori</a>
                 </div>
             </div>
             <br>
@@ -67,7 +66,7 @@
             <table class="table table-bordered table-stripped">
                 <thead>
                 <tr>
-                    <th><b>Name</b></th>
+                    <th><b>Nama Kategori</b></th>
                     <th><b>Actions</b></th>
                 </tr>
                 </thead>

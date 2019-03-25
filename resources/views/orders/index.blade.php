@@ -47,7 +47,7 @@
         <div class="col-md-12 text-right">
             <a
                 href="{{route('orders.create')}}"
-                class="btn btn-primary">Add Order</a>
+                class="btn btn-primary">Tambah Order</a>
         </div>
     </div>
     <br>

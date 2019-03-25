@@ -41,3 +41,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/findPrice', 'OrderController@findPrice')->name('findPrice');
 
 Route::resource('orders', 'OrderController');
+
+Route::get('/report', 'ReportController@index')->name('report.index');
+Route::get('/report/print', 'ReportController@print')->name('report.print');

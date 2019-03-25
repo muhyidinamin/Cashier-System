@@ -8,12 +8,12 @@
 ?>
 
 @extends('layouts.global')
-@section('title') Detail Category @endsection
+@section('title') Detail Kategori @endsection
 @section('content')
     <div class="col-md-8">
         <div class="card">
             <div class="card-body">
-                <label><b>Category name</b></label><br>
+                <label><b>Nama Kategori</b></label><br>
                 {{$category->name}}
                 <br><br>
             </div>

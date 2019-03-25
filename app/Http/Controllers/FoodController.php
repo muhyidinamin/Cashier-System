@@ -23,11 +23,32 @@ class FoodController extends Controller
      */
     public function index(Request $request)
     {
-        $foods = \App\Food::leftJoin('categories', 'foods.category', '=', 'categories.id')->paginate(10);
+        $foods = \App\Food::leftJoin('categories', 'foods.category', '=', 'categories.id')
+                ->select('categories.id as cat', 'categories.name', 'foods.*')->paginate(10);
 
-        $filterKeyword = $request->get('name');
+        $filterKeyword = $request->get('keyword');
+        
+        $status = $request->get('status');
+        if($status){
+            $foods = \App\Food::leftJoin('categories', 'foods.category', '=', 'categories.id')
+            ->select('categories.id as cat', 'categories.name', 'foods.*')
+            ->where('status', $status)->paginate(10);
+        } else {
+            $foods = \App\Food::leftJoin('categories', 'foods.category', '=', 'categories.id')
+            ->select('categories.id as cat', 'categories.name', 'foods.*')->paginate(10);
+        }
+
         if($filterKeyword){
-            $foods = \App\Food::leftJoin('categories', 'foods.category', '=', 'categories.id')->where("food_name", "LIKE", "%$filterKeyword%")->paginate(10);
+            if($status){
+                $foods = \App\Food::leftJoin('categories', 'foods.category', '=', 'categories.id')
+                        ->select('categories.id as cat', 'categories.name', 'foods.*')
+                        ->where('status', $status)
+                        ->where("food_name", "LIKE", "%$filterKeyword%")->paginate(10);
+            } else {
+                $foods = \App\Food::leftJoin('categories', 'foods.category', '=', 'categories.id')
+                        ->select('categories.id as cat', 'categories.name', 'foods.*')
+                        ->where("food_name", "LIKE", "%$filterKeyword%")->paginate(10);
+                }
         }
         return view('foods.index', ['foods' => $foods]);
     }
@@ -50,6 +71,13 @@ class FoodController extends Controller
      */
     public function store(Request $request)
     {
+        \Validator::make($request->all(), [
+            "name" => "required|min:5|max:200",
+            "categories" => "required",
+            "status" => "required",
+            "price" => "required|digits_between:0,10"
+        ])->validate();
+
         $name = $request->get('name');
         $price = $request->get('price');
         $status = $request->get('status');
@@ -74,7 +102,9 @@ class FoodController extends Controller
      */
     public function show($id)
     {
-        $food = \App\Food::findOrFail($id);
+        $food = \App\Food::leftJoin('categories', 'foods.category', '=', 'categories.id')
+        ->select('categories.id as cat', 'categories.name', 'foods.*')
+        ->findOrFail($id);
         return view('foods.show', ['food' => $food]);
     }
 
@@ -99,6 +129,13 @@ class FoodController extends Controller
      */
     public function update(Request $request, $id)
     {
+        \Validator::make($request->all(), [
+            "name" => "required|min:5|max:200",
+            "categories" => "required",
+            "status" => "required",
+            "price" => "required|digits_between:0,10"
+        ])->validate();
+
         $name = $request->get('name');
         $price = $request->get('price');
         $status = $request->get('status');
@@ -130,7 +167,8 @@ class FoodController extends Controller
     }
 
     public function trash(){
-        $deleted_food = \App\Food::onlyTrashed()->paginate(10);
+        $deleted_food = \App\Food::onlyTrashed()->leftJoin('categories', 'foods.category', '=', 'categories.id')
+        ->select('categories.id as cat', 'categories.name', 'foods.*')->paginate(10);
         return view('foods.trash', ['foods' => $deleted_food]);
     }
 

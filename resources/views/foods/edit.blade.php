@@ -8,7 +8,7 @@
 ?>
 
 @extends('layouts.global')
-@section('title') Edit Category @endsection
+@section('title') Edit Makanan @endsection
 @section('content')
     <div class="col-md-8">
         @if(session('status'))
@@ -26,22 +26,33 @@
                 type="hidden"
                 value="PUT"
                 name="_method">
-            <label>Food name</label> <br>
+            <label>Nama Makanan</label> <br>
             <input
                 type="text"
-                class="form-control"
-                value="{{$food->food_name}}"
+                class="form-control {{$errors->first('name') ? "is-invalid" : ""}}"
+                value="{{old('name') ? old('name') : $food->food_name}}"
                 name="name">
+            <div class="invalid-feedback">
+            {{$errors->first('name')}}
+            </div>
             <br><br>
-            <label>Category</label>
+
+            <label>Kategori</label>
             <select
             name="categories"
             id="categories"
-            class="form-control" required>
+            class="form-control {{$errors->first('categories') ? "is-invalid" : ""}}" required>
             </select>
+            <div class="invalid-feedback">
+            {{$errors->first('categories')}}
+            </div>
             <br>
-            <label>Price</label><br>
-            <input type="text" class="form-control" name="price" value="{{$food->price}}">
+
+            <label>Harga</label><br>
+            <input type="text" class="form-control {{$errors->first('price') ? "is-invalid" : ""}}" name="price" value="{{old('price') ? old('price') : $food->price}}">
+            <div class="invalid-feedback">
+            {{$errors->first('price')}}
+            </div>
             <br>
             <label>Status</label><br>
             <input value="READY" name="status" type="radio" class="form-control" id="ready" {{$food->status == 'READY' ? 'checked' : ''}}>

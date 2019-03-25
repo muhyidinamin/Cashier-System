@@ -41,5 +41,9 @@ class AuthServiceProvider extends ServiceProvider
         // TODO: logika untuk mengizinkan manage orders
             return count(array_intersect(["ADMIN", "CASHIER", "WAITER"], json_decode($user->roles)));
         });
+        Gate::define('print-report', function($user){
+        // TODO: logika untuk mengizinkan manage orders
+            return count(array_intersect(["ADMIN", "WAITER"], json_decode($user->roles)));
+        });
     }
 }

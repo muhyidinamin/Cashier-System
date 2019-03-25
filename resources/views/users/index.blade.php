@@ -1,5 +1,5 @@
 @extends("layouts.global");
-@section("title") Users list @endsection
+@section("title") List User @endsection
 @section("content")
     <div class="row">
         <div class="col-md-6">
@@ -47,7 +47,7 @@
         <div class="col-md-12 text-right">
             <a
                 href="{{route('users.create')}}"
-                class="btn btn-primary">Create user</a>
+                class="btn btn-primary">Tambah user</a>
         </div>
     </div>
     <br>
@@ -88,11 +88,6 @@
                 </td>
                 <td>
                     <a class="btn btn-info text-white btn-sm" href="{{route('users.edit',['id'=>$user->id])}}">Edit</a>
-                    @if(session('status'))
-                        <div class="alert alert-success">
-                            {{session('status')}}
-                        </div>
-                    @endif
                     <form
                         onsubmit="return confirm('Delete this user permanently?')"
                         class="d-inline"

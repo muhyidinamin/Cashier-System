@@ -8,22 +8,23 @@
 ?>
 
 @extends('layouts.global')
-@section('title') Detail Category @endsection
+@section('title') Detail Makanan @endsection
 @section('content')
     <div class="col-md-8">
         <div class="card">
             <div class="card-body">
-                <label><b>Category name</b></label><br>
-                {{$category->name}}
+                <label><b>Nama Makanan</b></label><br>
+                {{$food->food_name}}
                 <br><br>
-                <label><b>Category slug</b></label><br>
-                {{$category->slug}}
+                <label><b>Nama Kategori</b></label><br>
+                {{$food->name}}
                 <br><br>
-                <label><b>Category image</b></label><br>
-                @if($category->image)
-                    <img src="{{asset('storage/' . $category->image)}}"
-                         width="120px">
-                @endif
+                <label><b>Harga</b></label><br>
+                {{$food->price}}
+                <br><br>
+                <label><b>Status</b></label><br>
+                {{$food->status}}
+                <br><br>
             </div>
         </div>
     </div>

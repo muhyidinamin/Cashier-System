@@ -9,4 +9,8 @@ class Food extends Model
 {
     protected $fillable = ['food_name', 'category', 'price', 'status'];
     use SoftDeletes;
+    
+    public function category(){
+        return $this->belongsTo('App\Category');
+    }
 }

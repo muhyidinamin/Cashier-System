@@ -8,7 +8,7 @@
 ?>
 
 @extends('layouts.global')
-@section('title') Edit Category @endsection
+@section('title') Edit Kategori @endsection
 @section('content')
     <div class="col-md-8">
         @if(session('status'))
@@ -26,12 +26,15 @@
                 type="hidden"
                 value="PUT"
                 name="_method">
-            <label>Category name</label> <br>
+            <label>Nama Kategori</label> <br>
             <input
                 type="text"
-                class="form-control"
-                value="{{$category->name}}"
+                class="form-control {{$errors->first('name') ? "is-invalid" : ""}}"
+                value="{{old('name') ? old('name') : $category->name}}"
                 name="name">
+            <div class="invalid-feedback">
+            {{$errors->first('name')}}
+            </div>
             <br><br>
             <input type="submit" class="btn btn-primary" value="Update">
         </form>

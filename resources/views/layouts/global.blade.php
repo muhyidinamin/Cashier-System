@@ -75,35 +75,35 @@
             <ul class="polished-sidebar-menu ml-0 pt-4 p-0 d-md-block">
                 <input class="border-dark form-control d-block d-md-none mb-4" type="text" placeholder="Search" 
                 aria-label="Search" />
-                <li><a href="/home"><span class="oi oi-home"></span> Home</a>
+                <li><a href="/home"><span class="oi oi-home"></span> Beranda</a>
                 </li>
                 <li>
                     <a href="{{route('users.index')}}">
-                        <span class="oi oi-people"></span> Manage Users
+                        <span class="oi oi-people"></span> Kelola Data Pengguna
                     </a>
                 </li>
                 <li>
                     <a href="{{route('categories.index')}}">
                         <span class="oi oi-tag"></span>
-                        Manage Category
+                        Kelola Data Kategori
                     </a>
                 </li>
                 <li>
                     <a href="{{route('foods.index')}}">
                         <span class="oi oi-tag"></span>
-                        Manage Food
+                        Kelola Data Makanan
                     </a>
                 </li>
                 <li>
                     <a href="{{route('orders.index')}}">
                         <span class="oi oi-tag"></span>
-                        Manage Order
+                        Kelola Data Pesanan
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{route('report.index')}}">
                         <span class="oi oi-tag"></span>
-                        Print Report
+                        Cetak Laporan
                     </a>
                 </li>
                 <div class="d-block d-md-none">
