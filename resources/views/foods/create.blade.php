@@ -45,7 +45,7 @@
             <br>
 
             <label>Status</label><br>
-            <input value="READY" name="status" type="radio" class="form-control {{$errors->first('price') ? "is-invalid" : ""}}" id="ready">
+            <input value="READY" name="status" type="radio" class="form-control {{$errors->first('price') ? "is-invalid" : ""}}" id="ready" checked>
             <label for="ready">Ready</label>
             <input value="SOLD OUT" name="status" type="radio" class="form-control {{$errors->first('price') ? "is-invalid" : ""}}" id="sold_out">
             <label for="sold_out">Sold Out</label>

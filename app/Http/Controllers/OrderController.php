@@ -120,6 +120,8 @@ class OrderController extends Controller
     {
         $order = DB::table('orders')->where('order_id', $id)
             ->join('details_order', 'orders.id', '=', 'details_order.order_id')
+            ->join('foods', 'foods.id', '=', 'details_order.food_id')
+            ->join('categories', 'categories.id', 'foods.category')
             ->get();
 
         return view('orders.detail', ['orders' => $order]);

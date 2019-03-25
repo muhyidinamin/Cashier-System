@@ -5,22 +5,22 @@
         <div class="card">
             <div class="card-body">
                 @foreach($orders as $order)
-                <b>ID Pesanan :</b> <br/>
+                <b>ID Pesanan :</b> 
                 {{$order->order_id}}
                 <br><br>
-                <b>Nama Pelanggan :</b><br>
+                <b>Nama Pelanggan :</b>
                 {{$order->name_cus}}
                 <br>
                 <br>
-                <b>Phone number</b><br>
+                <b>Nama Makanan</b>
                 <ul>
-                    <li>{{$order->food_id}}</li>
+                    <li>{{$order->food_name}}</li>
                 </ul>
-                <b>Jumlah</b><br>
+                <b>Jumlah</b>
                 {{$order->qty}}
                 <br>
                 <br>
-                <b>Total</b><br>
+                <b>Total</b>
                 {{$order->total}}
                 <br>
                 <br>
